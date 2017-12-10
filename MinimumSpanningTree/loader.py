@@ -1,6 +1,8 @@
 """
 Module for loading graph from file.
 """
+
+
 def load_graph_from_file(path):
     """
     Function opens the file with given path and returns all lines.
