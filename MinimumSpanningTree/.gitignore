@@ -1,3 +1,4 @@
 .vscode/
 *.pyc
+*.gv
 __pycache__/

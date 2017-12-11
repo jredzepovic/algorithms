@@ -1,6 +1,8 @@
 """
 main.py
 """
+import graphviz
+
 import loader
 from dijkstra import Dijkstra
 from graph import Graph
@@ -13,14 +15,16 @@ kruskal = Kruskal(g)
 dijkstra = Dijkstra(g)
 prim = Prim(g)
 
-mst_kruskal = kruskal.run()
-mst_dijkstra = dijkstra.run()
-mst_prim = prim.run()
+algorithms = [kruskal, dijkstra, prim]
 
-sum_d = sum([int(edge.weight) for edge in mst_dijkstra])
-sum_k = sum([int(edge.weight) for edge in mst_kruskal])
-sum_p = sum([int(edge.weight) for edge in mst_prim])
+for algorithm in algorithms:
+    mst = algorithm.run()
+    sum_weight = sum([int(edge.weight) for edge in mst])
+    print('Sum for {}: {}'.format(algorithm.__class__.__name__, sum_weight))
 
-print('Sum for dijkstra: {}'.format(sum_d))
-print('Sum for kruskal: {}'.format(sum_k))
-print('Sum for prim: {}'.format(sum_p))
+    graph = graphviz.Graph(name=algorithm.__class__.__name__ + '_MST', format='pdf')
+    for vertex in g.vertices:
+        graph.node(vertex, label=vertex)
+    for edge in mst:
+        graph.edge(edge.v1, edge.v2, label=edge.weight)
+    graph.render(directory='mst_output')
