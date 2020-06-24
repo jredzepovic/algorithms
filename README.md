@@ -1,2 +1,2 @@
 # algorithms
-Implementations of various algorithms
+Implementation of various algorithms
